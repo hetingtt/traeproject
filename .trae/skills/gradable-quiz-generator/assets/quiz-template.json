@@ -1,0 +1,97 @@
+{
+  "quiz_id": "demo-001",
+  "title": "计算机网络基础 随堂测",
+  "topic": "计算机网络基础",
+  "difficulty": "medium",
+  "language": "zh-CN",
+  "grade_bands": [
+    [90, "A", "优秀"],
+    [80, "B", "良好"],
+    [70, "C", "中等"],
+    [60, "D", "及格"],
+    [0, "F", "不及格"]
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single_choice",
+      "stem": "TCP 建立连接时使用的握手次数是？",
+      "options": [
+        { "key": "A", "text": "两次" },
+        { "key": "B", "text": "三次" },
+        { "key": "C", "text": "四次" },
+        { "key": "D", "text": "一次" }
+      ],
+      "answer": "B",
+      "distractor_rationale": {
+        "A": "两次握手无法确认客户端已收到服务端的确认，存在历史连接风险。",
+        "C": "四次是 TCP 断开连接（挥手）的次数，不是建立连接。",
+        "D": "一次握手无法完成双向序号同步。"
+      },
+      "points": 5,
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "TCP 连接管理",
+      "explanation": "TCP 通过 SYN、SYN-ACK、ACK 三次握手完成双向序号同步与连接确认。"
+    },
+    {
+      "id": "q2",
+      "type": "multiple_choice",
+      "stem": "下列属于传输层协议的有？",
+      "options": [
+        { "key": "A", "text": "TCP" },
+        { "key": "B", "text": "UDP" },
+        { "key": "C", "text": "IP" },
+        { "key": "D", "text": "SCTP" }
+      ],
+      "answer": ["A", "B", "D"],
+      "points": 6,
+      "grading": { "partial_credit": false },
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "OSI 与 TCP/IP 分层",
+      "explanation": "IP 属于网络层；TCP、UDP、SCTP 均位于传输层。"
+    },
+    {
+      "id": "q3",
+      "type": "true_false",
+      "stem": "UDP 是面向连接的可靠传输协议。",
+      "answer": false,
+      "misconception": "常见误区是把 UDP 的「无连接」与「不可靠」混为一谈，UDP 确实无连接且不保证可靠交付。",
+      "points": 4,
+      "difficulty": "easy",
+      "cognitive_level": "understand",
+      "knowledge_point": "UDP 特性",
+      "explanation": "UDP 无连接、不保证顺序与可靠交付，仅提供尽最大努力交付。"
+    },
+    {
+      "id": "q4",
+      "type": "fill_blank",
+      "stem": "HTTP 默认端口号是 ______，HTTPS 默认端口号是 ______。",
+      "answer": [["80"], ["443"]],
+      "points": 4,
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "应用层协议端口",
+      "explanation": "HTTP 默认 80/tcp，HTTPS 默认 443/tcp。"
+    },
+    {
+      "id": "q5",
+      "type": "short_answer",
+      "stem": "简述 TCP 三次握手的过程，并说明为什么需要三次而不是两次。",
+      "answer": "客户端发送 SYN，服务端回复 SYN-ACK，客户端再发送 ACK 完成连接建立。三次握手用于双向同步初始序号并确认双方收发能力，避免历史失效连接请求导致服务端资源被错误占用。",
+      "points": 10,
+      "grading": {
+        "rubric": [
+          { "point": "描述 SYN / SYN-ACK / ACK 三步", "keywords": ["SYN", "SYN-ACK", "ACK"], "score": 4 },
+          { "point": "说明双向同步序号或确认收发能力", "keywords": ["序号", "同步", "收发能力", "双向"], "score": 3 },
+          { "point": "说明避免历史连接请求", "keywords": ["历史", "失效", "过期", "资源"], "score": 3 }
+        ]
+      },
+      "difficulty": "hard",
+      "cognitive_level": "analyze",
+      "knowledge_point": "TCP 连接管理",
+      "explanation": "核心在于双向序号同步与防止历史重复连接请求造成半开连接。"
+    }
+  ]
+}

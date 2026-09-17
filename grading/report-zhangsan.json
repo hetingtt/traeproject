@@ -1,0 +1,888 @@
+{
+  "quiz_id": "harmonyos-basic-cert-02",
+  "title": "HarmonyOS 应用开发者基础认证（二）",
+  "topic": "HarmonyOS / ArkTS / ArkUI",
+  "difficulty": "medium",
+  "total_score": 85.0,
+  "max_score": 100.0,
+  "percentage": 85.0,
+  "grade": "B",
+  "grade_label": "良好",
+  "passed": true,
+  "summary": {
+    "question_count": 20,
+    "correct": 17,
+    "wrong": 3,
+    "unanswered": 0,
+    "accuracy": 85.0,
+    "needs_manual_review": 0,
+    "by_type": {
+      "single_choice": {
+        "count": 20,
+        "correct": 17,
+        "score": 85.0,
+        "max_score": 100.0
+      }
+    },
+    "by_knowledge_point": {
+      "ArkTS 编程规范-命名": {
+        "count": 1,
+        "correct": 0,
+        "score": 0.0,
+        "max_score": 5.0
+      },
+      "ArkUI 装饰器": {
+        "count": 1,
+        "correct": 0,
+        "score": 0.0,
+        "max_score": 5.0
+      },
+      "用户首选项 preferences": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "网络管理 http": {
+        "count": 2,
+        "correct": 2,
+        "score": 10.0,
+        "max_score": 10.0
+      },
+      "资源引用 Resource": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "多端体验设计-折叠屏": {
+        "count": 2,
+        "correct": 2,
+        "score": 10.0,
+        "max_score": 10.0
+      },
+      "ArkUI 转场动效": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "一次开发多端部署": {
+        "count": 1,
+        "correct": 0,
+        "score": 0.0,
+        "max_score": 5.0
+      },
+      "ArkUI 组件分类": {
+        "count": 2,
+        "correct": 2,
+        "score": 10.0,
+        "max_score": 10.0
+      },
+      "Flex 布局": {
+        "count": 2,
+        "correct": 2,
+        "score": 10.0,
+        "max_score": 10.0
+      },
+      "Web 组件": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "ArkUI 拖拽事件": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "Button 组件": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "Tabs 组件": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "自定义弹窗": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      },
+      "ArkUI 公共事件": {
+        "count": 1,
+        "correct": 1,
+        "score": 5.0,
+        "max_score": 5.0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "q1",
+      "type": "single_choice",
+      "stem": "下面是ArkTS中常量名、枚举值名推荐的代码是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "全小写，下划线分割"
+        },
+        {
+          "key": "B",
+          "text": "大驼峰"
+        },
+        {
+          "key": "C",
+          "text": "小驼峰"
+        },
+        {
+          "key": "D",
+          "text": "全大写，下划线分割"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "ArkTS 编程规范-命名",
+      "user_answer": "C",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 0.0,
+      "max_score": 5.0,
+      "is_correct": false,
+      "needs_manual_review": false,
+      "feedback": "选了 C，标准答案是 D。混淆项说明：小驼峰（lowerCamelCase）是变量名、方法名、参数名的规范，常量不可用。",
+      "explanation": "ArkTS 编程规范要求常量名、枚举值名采用全部大写，单词间用下划线隔开，如 const MAX_USER_SIZE = 10000;",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q2",
+      "type": "single_choice",
+      "stem": "用哪一种装饰器修饰的组件可作为页面入口组件？",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Entry"
+        },
+        {
+          "key": "B",
+          "text": "@Component"
+        },
+        {
+          "key": "C",
+          "text": "@Builder"
+        },
+        {
+          "key": "D",
+          "text": "@Preview"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "ArkUI 装饰器",
+      "user_answer": "B",
+      "correct_answer": "A",
+      "reference_answer": null,
+      "score": 0.0,
+      "max_score": 5.0,
+      "is_correct": false,
+      "needs_manual_review": false,
+      "feedback": "选了 B，标准答案是 A。混淆项说明：@Component 用于定义自定义组件，被它修饰的组件是可复用组件，本身不是页面入口。",
+      "explanation": "@Entry 装饰的自定义组件作为页面的入口组件，一个页面有且仅有一个 @Entry 组件。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q3",
+      "type": "single_choice",
+      "stem": "首选项preferences值的存储支持哪些数据类型？",
+      "options": [
+        {
+          "key": "A",
+          "text": "字符型"
+        },
+        {
+          "key": "B",
+          "text": "数字型、字符型、布尔型以及这3种类型的数组类型"
+        },
+        {
+          "key": "C",
+          "text": "布尔型"
+        },
+        {
+          "key": "D",
+          "text": "数字型"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "用户首选项 preferences",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 B。",
+      "explanation": "首选项以键值对形式存储，键为字符串型，值的存储数据类型包括数字型、字符型、布尔型以及这 3 种类型的数组类型。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q4",
+      "type": "single_choice",
+      "stem": "使用http发起网络请求，需要以下哪种权限？",
+      "options": [
+        {
+          "key": "A",
+          "text": "ohos.permission.USE_BLUETOOTH"
+        },
+        {
+          "key": "B",
+          "text": "ohos.permission.INTERNET"
+        },
+        {
+          "key": "C",
+          "text": "ohos.permission.LOCATION"
+        },
+        {
+          "key": "D",
+          "text": "ohos.permission.REQUIRE_FORM"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "网络管理 http",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 B。",
+      "explanation": "HTTP 数据请求功能由 http 模块提供，使用该功能需要申请 ohos.permission.INTERNET 权限。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q5",
+      "type": "single_choice",
+      "stem": "关于Resource是资源引用类型描述错误的是：",
+      "options": [
+        {
+          "key": "A",
+          "text": "Resource是资源引用类型，用于设置组件属性的值。"
+        },
+        {
+          "key": "B",
+          "text": "通过\"$r('app.type.name')\"的形式引用应用资源，app代表是应用内resources目录中定义的资源，type代表资源类型（或资源的存放位置）。"
+        },
+        {
+          "key": "C",
+          "text": "Resource支持所有的数据类型。"
+        },
+        {
+          "key": "D",
+          "text": "系统可以根据当前配置加载合适的Resource资源，例如，开发者可以根据屏幕尺寸呈现不同的布局效果，或根据语言设置提供不同的字符串。"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "资源引用 Resource",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 C。",
+      "explanation": "Resource 并不支持所有数据类型，它支持 string、number、boolean、颜色、字体等特定资源类型，因此 C 的描述错误。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q6",
+      "type": "single_choice",
+      "stem": "向服务器提交表单数据，以下哪种请求方式比较合适：",
+      "options": [
+        {
+          "key": "A",
+          "text": "RequestMethod.GET"
+        },
+        {
+          "key": "B",
+          "text": "RequestMethod.DELETE"
+        },
+        {
+          "key": "C",
+          "text": "RequestMethod.PUT"
+        },
+        {
+          "key": "D",
+          "text": "RequestMethod.POST"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "understand",
+      "knowledge_point": "网络管理 http",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "POST 把数据放在请求体中提交，适合向服务器提交表单数据。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q7",
+      "type": "single_choice",
+      "stem": "直板机上的短视频切换到折叠屏打开状态后，哪些UI设计有助于体验提升？",
+      "options": [
+        {
+          "key": "A",
+          "text": "短视频出现在折叠屏左侧即可，右侧可以留白"
+        },
+        {
+          "key": "B",
+          "text": "短视频做左右满屏显示，视频顶部和底部用户看不到没关系"
+        },
+        {
+          "key": "C",
+          "text": "界面不做任何优化，直接复用直板机UI界面效果，左右可以留白或者背景模糊"
+        },
+        {
+          "key": "D",
+          "text": "短视频在屏幕左侧，右侧界面显示视频评论信息，实现边看边评的用户体验"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "apply",
+      "knowledge_point": "多端体验设计-折叠屏",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "折叠屏展开后应利用宽屏优势做内容分栏，左侧看视频、右侧看评论，实现边看边评。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q8",
+      "type": "single_choice",
+      "stem": "用户使用折叠屏进行电商购物比价时，什么体验比较好？",
+      "options": [
+        {
+          "key": "A",
+          "text": "用户不需要比较，凭借记忆就可以"
+        },
+        {
+          "key": "B",
+          "text": "查看商品详情时，在宽屏设备上，可点击应用内\"分屏\"按钮进行分屏，可满足同时查看两个商品的详细参数进行购物比价的诉求"
+        },
+        {
+          "key": "C",
+          "text": "用户自己用纸和笔记录每个商品的信息，进行比较"
+        },
+        {
+          "key": "D",
+          "text": "直板机的界面怎么比价，在折叠屏上的界面就怎么比价"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "apply",
+      "knowledge_point": "多端体验设计-折叠屏",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 B。",
+      "explanation": "宽屏设备可利用分屏能力同屏对比两个商品参数，直接满足比价诉求。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q9",
+      "type": "single_choice",
+      "stem": "下列哪一种转场类型建议使用父子转场手法？",
+      "options": [
+        {
+          "key": "A",
+          "text": "新建转场"
+        },
+        {
+          "key": "B",
+          "text": "搜索转场"
+        },
+        {
+          "key": "C",
+          "text": "上下级页面转场"
+        },
+        {
+          "key": "D",
+          "text": "编辑转场"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "ArkUI 转场动效",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 C。",
+      "explanation": "上下级页面存在明确的层级关系，适合使用父子转场（层级转场）表现页面进入与返回。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q10",
+      "type": "single_choice",
+      "stem": "\"一次开发，多端部署\"指的是一个工程，一次开发上架，多端按需部署。为了实现这一目的，HarmonyOS提供了几个核心能力，如下那个不是一多开发的核心能力？",
+      "options": [
+        {
+          "key": "A",
+          "text": "多端分发机制"
+        },
+        {
+          "key": "B",
+          "text": "多端开发环境"
+        },
+        {
+          "key": "C",
+          "text": "多端协同能力"
+        },
+        {
+          "key": "D",
+          "text": "多端开发能力"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "一次开发多端部署",
+      "user_answer": "D",
+      "correct_answer": "C",
+      "reference_answer": null,
+      "score": 0.0,
+      "max_score": 5.0,
+      "is_correct": false,
+      "needs_manual_review": false,
+      "feedback": "选了 D，标准答案是 C。混淆项说明：多端开发能力是一多核心能力之一，支撑一套代码适配多端。",
+      "explanation": "一多的三大核心能力是多端开发环境、多端开发能力、多端分发机制；多端协同能力属于全场景协同范畴，不属于一多核心能力。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q11",
+      "type": "single_choice",
+      "stem": "下面哪个组件不能包含子组件：",
+      "options": [
+        {
+          "key": "A",
+          "text": "Row"
+        },
+        {
+          "key": "B",
+          "text": "Button"
+        },
+        {
+          "key": "C",
+          "text": "Text"
+        },
+        {
+          "key": "D",
+          "text": "LoadingProgress"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "ArkUI 组件分类",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "LoadingProgress 是原子组件（基础组件），本身不包含子组件。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q12",
+      "type": "single_choice",
+      "stem": "Row组件中有两个Text组件，如果使用justifyContent对齐方式，下面哪个属性可以实现左右两端对齐：",
+      "options": [
+        {
+          "key": "A",
+          "text": "FlexAlign.Start"
+        },
+        {
+          "key": "B",
+          "text": "FlexAlign.SpaceEvenly"
+        },
+        {
+          "key": "C",
+          "text": "FlexAlign.End"
+        },
+        {
+          "key": "D",
+          "text": "FlexAlign.SpaceBetween"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "apply",
+      "knowledge_point": "Flex 布局",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "FlexAlign.SpaceBetween 使首尾子组件贴紧主轴两端，中间均匀分布，即左右两端对齐。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q13",
+      "type": "single_choice",
+      "stem": "下列组件类型中，容器组件是：",
+      "options": [
+        {
+          "key": "A",
+          "text": "TextArea"
+        },
+        {
+          "key": "B",
+          "text": "Text"
+        },
+        {
+          "key": "C",
+          "text": "List"
+        },
+        {
+          "key": "D",
+          "text": "DatePicker"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "ArkUI 组件分类",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 C。",
+      "explanation": "List 是容器组件，用于承载并排列子组件；其余三项均为基础组件。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q14",
+      "type": "single_choice",
+      "stem": "关于Web组件，下面描述错误的是：",
+      "options": [
+        {
+          "key": "A",
+          "text": "WebController控制器可以控制Web组件各种行为，比如forward、backward、runJavaScript等。"
+        },
+        {
+          "key": "B",
+          "text": "Web组件支持fileAccess、javaScriptAccess等多种属性的设置，例如 .javaScriptAccess(true)表示允许执行JavaScript脚本。"
+        },
+        {
+          "key": "C",
+          "text": "Web组件支持onConfirm、onConsole等多种事件，例如网页调用confirm()告警时触发onConfirm回调。"
+        },
+        {
+          "key": "D",
+          "text": "使用Web组件访问在线和离线网页都需要添加ohos.permission.INTERNET权限。"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "Web 组件",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "只有访问在线网页才需要 ohos.permission.INTERNET 权限，加载本地离线网页不需要该权限，因此 D 错误。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q15",
+      "type": "single_choice",
+      "stem": "组件公共事件onDragMove的触发范围是：",
+      "options": [
+        {
+          "key": "A",
+          "text": "组件范围内移动时，触发回调"
+        },
+        {
+          "key": "B",
+          "text": "设备显示区域内移动时，触发回调"
+        },
+        {
+          "key": "C",
+          "text": "离开组件范围移动时，触发回调"
+        },
+        {
+          "key": "D",
+          "text": "应用范围内移动时，触发回调"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "remember",
+      "knowledge_point": "ArkUI 拖拽事件",
+      "user_answer": "A",
+      "correct_answer": "A",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 A。",
+      "explanation": "拖拽点在组件范围内移动时触发 onDragMove；且只有该组件监听了 onDrop 事件时该回调才会被触发。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q16",
+      "type": "single_choice",
+      "stem": "关于Button组件，下面哪个样式是胶囊型按钮：",
+      "options": [
+        {
+          "key": "A",
+          "text": "ButtonType.Capsule"
+        },
+        {
+          "key": "B",
+          "text": "ButtonType.Normal"
+        },
+        {
+          "key": "C",
+          "text": "ButtonType.Circle"
+        },
+        {
+          "key": "D",
+          "text": "以上都不是"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "Button 组件",
+      "user_answer": "A",
+      "correct_answer": "A",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 A。",
+      "explanation": "Button 有三种类型：Capsule（胶囊型）、Circle（圆形）、Normal（普通），通过 type 参数设置。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q17",
+      "type": "single_choice",
+      "stem": "关于Tabs组件页签的位置设置,下面描述错误的是：",
+      "options": [
+        {
+          "key": "A",
+          "text": "当barPosition为Start（默认值），vertical属性为false时（默认值），页签位于容器顶部。"
+        },
+        {
+          "key": "B",
+          "text": "当barPosition为Start（默认值） ，vertical属性为true时，页签位于容器左侧"
+        },
+        {
+          "key": "C",
+          "text": "当barPosition为End ，vertical属性为false（默认值）时，页签位于容器底部。"
+        },
+        {
+          "key": "D",
+          "text": "当barPosition为End ，vertical属性为true时，页签位于容器底部。"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "Tabs 组件",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "barPosition 为 End 且 vertical 为 true 时，页签位于容器右侧而非底部，因此 D 描述错误。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q18",
+      "type": "single_choice",
+      "stem": "例如现在要实现一个广告弹窗，包含图片和文本等信息，使用下面那种弹窗可以实现",
+      "options": [
+        {
+          "key": "A",
+          "text": "AlertDialog"
+        },
+        {
+          "key": "B",
+          "text": "@CustomDialog"
+        },
+        {
+          "key": "C",
+          "text": "TextPickerDialog"
+        },
+        {
+          "key": "D",
+          "text": "TimePickerDialog"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "apply",
+      "knowledge_point": "自定义弹窗",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 B。",
+      "explanation": "广告弹窗需要图片、文本等复杂自定义布局，应使用 @CustomDialog 自定义弹窗。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q19",
+      "type": "single_choice",
+      "stem": "下列哪一项不属于ArkUI组件的公共事件？",
+      "options": [
+        {
+          "key": "A",
+          "text": "onAppear"
+        },
+        {
+          "key": "B",
+          "text": "onTouch"
+        },
+        {
+          "key": "C",
+          "text": "onClick"
+        },
+        {
+          "key": "D",
+          "text": "on"
+        }
+      ],
+      "difficulty": "easy",
+      "cognitive_level": "remember",
+      "knowledge_point": "ArkUI 公共事件",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "on 不是完整的事件方法名，ArkUI 公共事件包括 onClick、onTouch、onAppear、onDisAppear、onKeyEvent、onHover 等。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    },
+    {
+      "id": "q20",
+      "type": "single_choice",
+      "stem": "关于容器组件Row和Column，下面说法错误的是：",
+      "options": [
+        {
+          "key": "A",
+          "text": "Column容器的主轴是垂直方向，交叉轴是水平方向；Row容器的主轴是水平方向，交叉轴是垂直方向"
+        },
+        {
+          "key": "B",
+          "text": "主轴和交叉轴始终是相互垂直的，Row和Column主轴的方向不一样"
+        },
+        {
+          "key": "C",
+          "text": "Column的子组件在主轴方向上的对齐使用justifyContent属性来设置，其参数类型是FlexAlign"
+        },
+        {
+          "key": "D",
+          "text": "Row的子组件在交叉轴方向上的对齐方式使用alignItems属性来设置，其参数类型为HorizontalAlign"
+        }
+      ],
+      "difficulty": "medium",
+      "cognitive_level": "understand",
+      "knowledge_point": "Flex 布局",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "reference_answer": null,
+      "score": 5.0,
+      "max_score": 5.0,
+      "is_correct": true,
+      "needs_manual_review": false,
+      "feedback": "正确，选 D。",
+      "explanation": "Row 的交叉轴是垂直方向，alignItems 的参数类型应为 VerticalAlign 而不是 HorizontalAlign，因此 D 错误。",
+      "matched_points": null,
+      "missing_points": null,
+      "semantic_similarity": null
+    }
+  ]
+}

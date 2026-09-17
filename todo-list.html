@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>待办事项</title>
+<style>
+  /* ==========================================================================
+     设计变量：统一管理配色、字体与圆角，便于整体调色
+     ========================================================================== */
+  :root {
+    --paper: #f2efe7;          /* 纸底色 */
+    --card: #fffdf9;           /* 卡片底色 */
+    --ink: #1e1a15;            /* 正文墨色 */
+    --ink-soft: #6f675c;       /* 次级文字 */
+    --ink-faint: #a79e91;      /* 弱化文字（占位符、已完成项） */
+    --line: rgba(30, 26, 21, 0.12);
+    --line-strong: rgba(30, 26, 21, 0.24);
+    --accent: #c0392b;         /* 朱砂红，全局唯一强调色 */
+    --accent-soft: rgba(192, 57, 43, 0.12);
+    --radius: 3px;
+    /* 中文衬线作标题、无衬线作正文，均为系统字体，离线可用 */
+    --font-display: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "SimSun", Georgia, serif;
+    --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  /* ==========================================================================
+     页面骨架：纵向水平双居中
+     ========================================================================== */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background-color: var(--paper);
+    /* 顶部微亮的径向渐变，模拟纸张受光 */
+    background-image: radial-gradient(130% 90% at 50% 0%, #fbf9f4 0%, var(--paper) 55%, #e8e3d7 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 纸张颗粒纹理：用 SVG 噪声叠一层，避免纯色背景的塑料感 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+  }
+
+  /* ==========================================================================
+     卡片容器
+     ========================================================================== */
+  .app {
+    position: relative;
+    width: min(560px, 100%);
+    padding: 44px 40px 30px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 18px 44px -26px rgba(30, 26, 21, 0.45),
+      0 2px 6px -2px rgba(30, 26, 21, 0.08);
+    animation: riseIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  /* 卡片顶部的朱砂短线，作为视觉锚点 */
+  .app::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 40px;
+    width: 34px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ==========================================================================
+     页头
+     ========================================================================== */
+  .eyebrow {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+
+  .title {
+    margin: 8px 0 0;
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+  }
+
+  /* ==========================================================================
+     输入区
+     ========================================================================== */
+  .composer {
+    display: flex;
+    gap: 10px;
+    margin: 28px 0 8px;
+  }
+
+  .composer__input {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    padding: 0 14px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .composer__input::placeholder { color: var(--ink-faint); }
+
+  .composer__input:focus {
+    outline: none;
+    border-color: var(--ink-soft);
+    background: #ffffff;
+  }
+
+  .composer__btn {
+    height: 46px;
+    padding: 0 24px;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: #fbf9f4;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  }
+
+  .composer__btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .composer__btn:active { transform: translateY(1px); }
+
+  /* 输入为空时的轻微抖动提示 */
+  .composer.is-invalid { animation: shake 0.32s ease; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-5px); }
+    75%      { transform: translateX(5px); }
+  }
+
+  /* ==========================================================================
+     列表
+     ========================================================================== */
+  .list {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--line);
+    animation: itemIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+
+  /* 删除时先播放退出动画，动画结束后再移除节点 */
+  .item.is-leaving {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  @keyframes itemIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* --- 自定义勾选框 --- */
+  .item__check {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  /* 原生 checkbox 保留以支持键盘操作与无障碍，仅做视觉隐藏 */
+  .item__box {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .item__mark {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 2px;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+  }
+
+  /* 用旋转的短边画出对勾，勾选时带一点回弹 */
+  .item__mark::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transform-origin: center;
+    transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.5);
+  }
+
+  .item__box:checked + .item__mark {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .item__box:checked + .item__mark::after { transform: rotate(45deg) scale(1); }
+
+  .item__box:focus-visible + .item__mark {
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  /* --- 事项文字 --- */
+  .item__text {
+    font-size: 15px;
+    line-height: 1.6;
+    word-break: break-word;
+    /* 删除线用 text-decoration 实现，好处是多行文本会逐行划线；
+       初始把线的颜色设为透明，勾选后再过渡为可见色，从而得到淡入效果 */
+    text-decoration: line-through;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    transition: color 0.22s ease, text-decoration-color 0.24s ease;
+  }
+
+  .item.is-done .item__text {
+    color: var(--ink-faint);
+    text-decoration-color: currentColor;
+  }
+
+  /* --- 删除按钮：默认半透明以保持列表安静，悬停或聚焦时完全显现 --- */
+  .item__del {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--ink-faint);
+    background: transparent;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    /* 不用 0 而用 0.45：保留可发现性，否则用户不知道这一项可以删除 */
+    opacity: 0.45;
+    transition: opacity 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .item:hover .item__del,
+  .item:focus-within .item__del { opacity: 1; }
+
+  .item__del:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  @media (hover: none) {
+    .item__del { opacity: 1; }
+  }
+
+  /* ==========================================================================
+     空状态与页脚
+     ========================================================================== */
+  .empty {
+    margin: 26px 0 10px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
+  .empty[hidden] { display: none; }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+
+  /* 尊重系统的「减弱动效」设置 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* 小屏适配 */
+  @media (max-width: 480px) {
+    .app { padding: 32px 22px 22px; }
+    .app::before { left: 22px; }
+    .title { font-size: 28px; }
+    .composer__btn { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="app">
+    <header>
+      <p class="eyebrow" id="today-date"></p>
+      <h1 class="title">待办事项</h1>
+    </header>
+
+    <!-- 输入区：使用 form 以支持回车提交 -->
+    <form class="composer" id="composer" autocomplete="off">
+      <input
+        class="composer__input"
+        id="todo-input"
+        type="text"
+        maxlength="80"
+        placeholder="写下一件要做的事…"
+        aria-label="待办事项内容"
+      />
+      <button class="composer__btn" type="submit">添加</button>
+    </form>
+
+    <!-- 待办列表：由 JavaScript 动态填充 -->
+    <ul class="list" id="todo-list" aria-live="polite"></ul>
+
+    <p class="empty" id="empty-tip">清单还是空的，从上面添加第一件事。</p>
+
+    <footer class="foot">
+      <span id="stat-total">共 0 项</span>
+      <span id="stat-done">已完成 0 项</span>
+    </footer>
+  </main>
+
+<script>
+(function () {
+  'use strict';
+
+  /**
+   * 删除动画时长（毫秒），必须与 CSS 中 .item 的过渡时长保持一致，
+   * 否则会出现动画没播完节点就被移除、或移除后留下空白的情况。
+   */
+  var LEAVE_DURATION = 220;
+
+  var composer = document.getElementById('composer');
+  var input = document.getElementById('todo-input');
+  var list = document.getElementById('todo-list');
+  var emptyTip = document.getElementById('empty-tip');
+  var statTotal = document.getElementById('stat-total');
+  var statDone = document.getElementById('stat-done');
+
+  /** 自增序号，仅用于生成列表项的唯一标识，不参与业务逻辑 */
+  var seq = 0;
+
+  /**
+   * 渲染页头的当天日期。
+   * 放在 JavaScript 中计算而非写死，保证页面任何时候打开都是正确的日期。
+   */
+  function renderToday() {
+    var now = new Date();
+    var weekNames = ['日', '一', '二', '三', '四', '五', '六'];
+    var text = now.getFullYear() + '年' +
+      (now.getMonth() + 1) + '月' +
+      now.getDate() + '日 星期' + weekNames[now.getDay()];
+    document.getElementById('today-date').textContent = text;
+  }
+
+  /**
+   * 刷新页脚统计与空状态提示。
+   * 直接以 DOM 为准统计，避免再维护一份状态数据导致两者不一致。
+   */
+  function refreshMeta() {
+    var items = list.querySelectorAll('.item');
+    var doneCount = list.querySelectorAll('.item.is-done').length;
+
+    statTotal.textContent = '共 ' + items.length + ' 项';
+    statDone.textContent = '已完成 ' + doneCount + ' 项';
+    emptyTip.hidden = items.length > 0;
+  }
+
+  /**
+   * 创建一条待办事项的 DOM 节点。
+   * 文本一律通过 textContent 写入，防止用户输入的内容被当作 HTML 解析。
+   * @param {string} text 待办内容，调用前需保证已去除首尾空白
+   * @returns {HTMLLIElement} 组装好的列表项
+   */
+  function createItem(text) {
+    seq += 1;
+
+    var item = document.createElement('li');
+    item.className = 'item';
+    item.dataset.id = String(seq);
+
+    var check = document.createElement('label');
+    check.className = 'item__check';
+
+    var box = document.createElement('input');
+    box.type = 'checkbox';
+    box.className = 'item__box';
+    box.setAttribute('aria-label', '标记完成：' + text);
+
+    var mark = document.createElement('span');
+    mark.className = 'item__mark';
+
+    check.appendChild(box);
+    check.appendChild(mark);
+
+    var content = document.createElement('span');
+    content.className = 'item__text';
+    content.textContent = text;
+
+    var del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'item__del';
+    del.textContent = '\u00d7'; // ×
+    del.setAttribute('aria-label', '删除：' + text);
+
+    item.appendChild(check);
+    item.appendChild(content);
+    item.appendChild(del);
+    return item;
+  }
+
+  /**
+   * 添加一条待办。
+   * 空内容不添加，改为触发输入框抖动提示。
+   * @param {string} rawText 输入框原始内容
+   */
+  function addTodo(rawText) {
+    var text = rawText.trim();
+    if (!text) {
+      composer.classList.remove('is-invalid');
+      // 强制浏览器重排，使同一个抖动动画可以连续触发
+      void composer.offsetWidth;
+      composer.classList.add('is-invalid');
+      input.focus();
+      return;
+    }
+
+    list.appendChild(createItem(text));
+    input.value = '';
+    input.focus();
+    refreshMeta();
+  }
+
+  /**
+   * 切换某条待办的完成状态。
+   * @param {HTMLLIElement} item 列表项
+   * @param {boolean} done 是否已完成
+   */
+  function setDone(item, done) {
+    item.classList.toggle('is-done', done);
+    refreshMeta();
+  }
+
+  /**
+   * 删除一条待办：先播放退出动画，动画结束后再移除节点。
+   * @param {HTMLLIElement} item 列表项
+   */
+  function removeTodo(item) {
+    item.classList.add('is-leaving');
+    window.setTimeout(function () {
+      item.remove();
+      refreshMeta();
+    }, LEAVE_DURATION);
+  }
+
+  // 提交表单：点击「添加」或按回车都会走到这里
+  composer.addEventListener('submit', function (event) {
+    event.preventDefault();
+    addTodo(input.value);
+  });
+
+  // 勾选框状态变化：事件委托到列表上，避免为每个列表项单独绑定
+  list.addEventListener('change', function (event) {
+    var box = event.target;
+    if (!box.classList.contains('item__box')) return;
+    setDone(box.closest('.item'), box.checked);
+  });
+
+  // 点击删除按钮
+  list.addEventListener('click', function (event) {
+    var del = event.target.closest('.item__del');
+    if (!del) return;
+    removeTodo(del.closest('.item'));
+  });
+
+  // 输入框重新获得焦点时，清掉上一次的抖动状态
+  input.addEventListener('input', function () {
+    composer.classList.remove('is-invalid');
+  });
+
+  renderToday();
+  refreshMeta();
+})();
+</script>
+</body>
+</html>
