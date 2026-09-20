@@ -353,9 +353,112 @@
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
   .reveal.is-in { opacity: 1; transform: none; }
 
+  /* ---------- 滚动进度条 ---------- */
+  .progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0;
+    background: linear-gradient(90deg, var(--cinnabar), var(--ochre));
+    z-index: 50; transition: width .12s linear;
+  }
+
+  /* ---------- 顶部导航 ---------- */
+  .topnav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(247, 244, 236, .92);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto; white-space: nowrap;
+    scrollbar-width: thin;
+  }
+  .topnav::-webkit-scrollbar { height: 3px; }
+  .topnav::-webkit-scrollbar-thumb { background: var(--line); }
+  .topnav__inner {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; gap: 2px; padding: 0 24px;
+  }
+  .topnav__a {
+    font-family: var(--serif);
+    font-size: 13px; letter-spacing: .16em;
+    color: var(--ink-3); text-decoration: none;
+    padding: 11px 12px; border-bottom: 2px solid transparent;
+    transition: color .25s, border-color .25s;
+  }
+  .topnav__a:hover { color: var(--ink); }
+  .topnav__a.is-active { color: var(--cinnabar); border-bottom-color: var(--cinnabar); }
+
+  /* ---------- 报头意境图 ---------- */
+  .masthead { overflow: hidden; position: relative; z-index: 0; }
+  .masthead__bg {
+    position: absolute; inset: 0; z-index: -1;
+    background-image: linear-gradient(180deg, rgba(247,244,236,.35) 0%, var(--paper) 100%),
+      url("https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20ink%20wash%20painting%20of%20West%20Lake%20Hangzhou%2C%20distant%20mountains%20and%20pagoda%20silhouette%20in%20mist%2C%20minimalist%20monochrome%20brush%20stroke%20style%2C%20very%20light%20and%20ethereal%2C%20lots%20of%20empty%20space%2C%20no%20text&image_size=landscape_16_9");
+    background-size: cover; background-position: center;
+    opacity: .4;
+  }
+
+  /* ---------- 章节分隔装饰 ---------- */
+  .sec__divider {
+    text-align: center; margin: 0 0 28px;
+    color: var(--line); font-size: 14px; letter-spacing: 1em;
+  }
+
+  /* ---------- 时间轴垂直线 ---------- */
+  .tl { position: relative; }
+  .tl::before {
+    content: ''; position: absolute;
+    left: 97px; top: 8px; bottom: 8px; width: 2px;
+    background: var(--line-2);
+  }
+  .tl__row { position: relative; }
+  .tl__ico { position: relative; z-index: 1; }
+  .tl__ico::after {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--paper-2); border: 2px solid var(--line);
+    z-index: -1;
+  }
+  .day--1 .tl__ico::after { border-color: rgba(168,56,42,.3); }
+  .day--2 .tl__ico::after { border-color: rgba(63,99,83,.3); }
+  .day--3 .tl__ico::after { border-color: rgba(156,107,34,.3); }
+
+  /* ---------- 卡片图片增强 ---------- */
+  .card__shot::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(27,26,23,.12) 100%);
+    opacity: 0; transition: opacity .35s;
+  }
+  .card:hover .card__shot::after { opacity: 1; }
+  .card__shot img { transition: transform .5s cubic-bezier(.2,.7,.3,1); }
+  .card:hover .card__shot img { transform: scale(1.06); }
+
+  /* ---------- 段首大字 ---------- */
+  .lead::first-letter {
+    font-family: var(--serif);
+    font-size: 2.4em; line-height: 1;
+    float: left; margin: 4px 8px 0 0;
+    color: var(--cinnabar);
+  }
+
+  /* ---------- 回到顶部按钮 ---------- */
+  .btn-top {
+    font-family: var(--sans);
+    font-size: 13px; letter-spacing: .08em;
+    padding: 10px 16px;
+    background: var(--paper-2); color: var(--ink);
+    border: 1px solid var(--line);
+    cursor: pointer; box-shadow: var(--shadow-md);
+    transition: background .25s, border-color .25s, color .25s;
+  }
+  .btn-top:hover { background: var(--ink); color: var(--paper-2); border-color: var(--ink); }
+
+  /* ---------- 平滑滚动 ---------- */
+  html { scroll-behavior: smooth; }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
     .card { transition: none; }
+    .card__shot img { transition: none; }
+    html { scroll-behavior: auto; }
   }
 
   /* ---------- 窄屏 ---------- */
@@ -364,8 +467,11 @@
     .masthead { padding: 44px 0 28px; }
     .seal { position: static; margin-bottom: 18px; transform: none; }
     .tl__row { grid-template-columns: 68px 26px 1fr; gap: 9px; padding: 11px 14px; }
+    .tl::before { left: 78px; }
     .sec__head { flex-wrap: wrap; gap: 8px; }
     .sec__note { white-space: normal; }
+    .topnav__inner { padding: 0 16px; }
+    .topnav__a { padding: 10px 8px; font-size: 12px; }
   }
 
   /* ---------- 打印：去纹理、去交互、防止卡片跨页断裂 ---------- */
@@ -374,7 +480,7 @@
   @media print {
     body { background: #fff; background-image: none; font-size: 11.5pt; color: #000; }
     .wrap { max-width: none; padding: 0; }
-    .toolbar, .no-print { display: none !important; }
+    .toolbar, .no-print, .topnav, .progress { display: none !important; }
     .masthead { padding-top: 0; margin-bottom: 26px; }
     .sec { margin-bottom: 30px; break-inside: avoid; }
     .day, .card, .map, .tbl-wrap { break-inside: avoid; box-shadow: none; }
@@ -391,6 +497,23 @@
 </style>
 </head>
 <body>
+
+<!-- 滚动进度条 -->
+<div class="progress no-print" id="progress"></div>
+
+<!-- 顶部章节导航 -->
+<nav class="topnav no-print">
+  <div class="topnav__inner">
+    <a class="topnav__a" href="#time">卷一 · 出行</a>
+    <a class="topnav__a" href="#weather">卷二 · 天气</a>
+    <a class="topnav__a" href="#map">卷三 · 地图</a>
+    <a class="topnav__a" href="#plan">卷四 · 路线</a>
+    <a class="topnav__a" href="#spots">卷五 · 景点</a>
+    <a class="topnav__a" href="#food">卷六 · 美食</a>
+    <a class="topnav__a" href="#hotel">卷七 · 住宿</a>
+    <a class="topnav__a" href="#tips">卷八 · 实用</a>
+  </div>
+</nav>
 
 <!-- 图标定义：景点 / 餐饮 / 交通 / 住宿 / 门票 / 天气 / 提示 / 月 -->
 <svg class="sprite" aria-hidden="true" focusable="false">
@@ -439,6 +562,7 @@
 
   <!-- ======================= 报头 ======================= -->
   <header class="masthead">
+    <div class="masthead__bg" aria-hidden="true"></div>
     <div class="seal" aria-hidden="true">中秋<small>杭州行</small></div>
     <p class="masthead__eyebrow">Hangzhou · Mid-Autumn</p>
     <h1 class="masthead__title">杭州中秋<br>三日行程</h1>
@@ -1288,6 +1412,7 @@
 </div>
 
 <div class="toolbar no-print">
+  <button class="btn-top" type="button" id="btn-top">回到顶部</button>
   <button class="btn" type="button" id="btn-print">打印 / 存为 PDF</button>
 </div>
 
@@ -1326,8 +1451,64 @@
     button.addEventListener('click', function () { window.print(); });
   }
 
+  /**
+   * 滚动进度条：根据视口滚动位置更新顶部进度条宽度。
+   */
+  function initScrollProgress() {
+    const bar = document.getElementById('progress');
+    if (!bar) return;
+    function update() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+      bar.style.width = (ratio * 100) + '%';
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+  }
+
+  /**
+   * 顶部导航高亮：滚动时根据当前可见章节高亮对应导航项。
+   */
+  function initTopNav() {
+    const links = document.querySelectorAll('.topnav__a');
+    if (!links.length) return;
+    const sections = [];
+    links.forEach(function (link) {
+      const id = link.getAttribute('href');
+      if (!id || !id.startsWith('#')) return;
+      const sec = document.querySelector(id);
+      if (sec) sections.push({ el: sec, link: link });
+    });
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        sections.forEach(function (s) { s.link.classList.remove('is-active'); });
+        const match = sections.find(function (s) { return s.el === entry.target; });
+        if (match) match.link.classList.add('is-active');
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function (s) { observer.observe(s.el); });
+  }
+
+  /**
+   * 回到顶部按钮：点击后平滑滚动回页面顶部。
+   */
+  function initBackToTop() {
+    const button = document.getElementById('btn-top');
+    if (!button) return;
+    button.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   initReveal();
   initPrintButton();
+  initScrollProgress();
+  initTopNav();
+  initBackToTop();
 </script>
 
 </body>
