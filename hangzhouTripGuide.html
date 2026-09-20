@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杭州中秋三日 · 行程攻略</title>
+<style>
+  /* ============================================================
+     设计说明：以「宋韵手卷」为视觉母题——宣纸底、墨色字、朱砂点缀，
+     标题用宋体、正文用黑体，全篇靠留白与细线分区，避免深色背景以保证打印友好。
+     ============================================================ */
+
+  :root {
+    /* 色板：宣纸 / 墨 / 朱砂 / 青 / 赭 / 黛 */
+    --paper:      #f7f4ec;
+    --paper-2:    #fffdf8;
+    --ink:        #1b1a17;
+    --ink-2:      #514c43;
+    --ink-3:      #8b8477;
+    --line:       #d9d2c3;
+    --line-2:     #ebe5d8;
+    --cinnabar:   #a8382a;   /* 朱砂：Day 1 与强调 */
+    --jade:       #3f6353;   /* 青：Day 2 */
+    --ochre:      #9c6b22;   /* 赭：Day 3 */
+    --slate:      #35617a;   /* 黛：交通 */
+    --paper-tint: #f1ece0;
+
+    --serif: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans:  "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+
+    --shadow-sm: 0 1px 2px rgba(27, 26, 23, .05);
+    --shadow-md: 0 1px 2px rgba(27, 26, 23, .04), 0 10px 28px -14px rgba(27, 26, 23, .28);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    /* 极淡的颗粒纹理，避免大面积纯色的塑料感；打印时移除 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    background-blend-mode: multiply;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: .01em;
+  }
+
+  /* 隐藏的图标雪碧图，避免重复内联 SVG */
+  .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* ---------- 报头 ---------- */
+  .masthead {
+    padding: 72px 0 40px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .masthead__eyebrow {
+    font-family: var(--serif);
+    font-size: 13px;
+    letter-spacing: .42em;
+    color: var(--cinnabar);
+    margin: 0 0 22px;
+    text-transform: uppercase;
+  }
+
+  .masthead__title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 1.08;
+    letter-spacing: .06em;
+    margin: 0 0 8px;
+  }
+
+  .masthead__sub {
+    font-family: var(--serif);
+    font-size: clamp(15px, 2.2vw, 19px);
+    color: var(--ink-2);
+    letter-spacing: .22em;
+    margin: 0 0 34px;
+  }
+
+  /* 报头右侧的朱砂印章 */
+  .seal {
+    position: absolute;
+    top: 68px;
+    right: 0;
+    width: 78px;
+    height: 78px;
+    border: 2px solid var(--cinnabar);
+    border-radius: 4px;
+    color: var(--cinnabar);
+    font-family: var(--serif);
+    display: grid;
+    place-content: center;
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: .1em;
+    opacity: .9;
+    transform: rotate(-2deg);
+  }
+  .seal small { display: block; font-size: 10px; letter-spacing: .3em; margin-top: 4px; opacity: .8; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .fact { background: var(--paper-2); padding: 16px 18px; }
+  .fact__k {
+    font-size: 11px;
+    letter-spacing: .26em;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .fact__v { font-family: var(--serif); font-size: 18px; letter-spacing: .04em; }
+  .fact__v em { font-style: normal; color: var(--cinnabar); }
+
+  /* ---------- 章节 ---------- */
+  .sec { margin: 0 0 72px; scroll-margin-top: 16px; }
+
+  .sec__head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+
+  .sec__no {
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: .3em;
+    color: var(--cinnabar);
+    border-left: 3px solid var(--cinnabar);
+    padding-left: 9px;
+    white-space: nowrap;
+  }
+
+  .sec__title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3.4vw, 30px);
+    font-weight: 600;
+    letter-spacing: .12em;
+    margin: 0;
+    flex: 1;
+  }
+
+  .sec__note {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
+  .lead { font-size: 15px; color: var(--ink-2); margin: -12px 0 26px; max-width: 74ch; }
+
+  /* ---------- 表格 ---------- */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--paper-2); }
+  .tbl th, .tbl td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line-2); }
+  .tbl thead th {
+    background: var(--paper-tint);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: .14em;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .tbl tbody tr:last-child td { border-bottom: none; }
+  .tbl td strong { font-weight: 600; }
+  .tbl .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tbl-wrap { border: 1px solid var(--line); overflow-x: auto; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11.5px;
+    letter-spacing: .1em;
+    padding: 2px 8px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tag--hot { color: var(--cinnabar); }
+  .tag--ok  { color: var(--jade); }
+  .tag--warn{ color: var(--ochre); }
+  .tag--plain { color: var(--ink-3); }
+
+  /* 提示条 */
+  .alert {
+    border-left: 3px solid var(--cinnabar);
+    background: var(--paper-2);
+    padding: 14px 18px;
+    margin: 22px 0;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  .alert strong { color: var(--ink); }
+  .alert--calm { border-left-color: var(--slate); }
+
+  /* ---------- 地图 ---------- */
+  .map {
+    border: 1px solid var(--line);
+    background: var(--paper-2);
+    padding: 20px 20px 8px;
+  }
+  .map svg { display: block; width: 100%; height: auto; }
+  .map__cap {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    padding: 10px 2px 12px;
+    border-top: 1px dashed var(--line);
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+  }
+  .map__cap span { display: inline-flex; align-items: center; gap: 7px; }
+  .swatch { width: 18px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; }
+
+  /* 地图文字与路径：统一在此控制，便于整体调整 */
+  .mp-label { font-family: var(--serif); font-size: 13px; fill: var(--ink); letter-spacing: .08em; }
+  .mp-sub   { font-family: var(--sans); font-size: 10.5px; fill: var(--ink-3); letter-spacing: .06em; }
+  .mp-num   { font-family: var(--sans); font-size: 11px; fill: #fff; font-weight: 700; }
+  .mp-water { fill: #dfe8e6; stroke: #b8cbc7; stroke-width: 1; }
+  .mp-causeway { stroke: #fffdf8; stroke-width: 3; stroke-linecap: round; }
+
+  /* ---------- 行程时间轴 ---------- */
+  .day { border: 1px solid var(--line); background: var(--paper-2); margin-bottom: 22px; box-shadow: var(--shadow-sm); }
+  .day__head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper-tint);
+  }
+  .day__badge {
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: .24em;
+    padding: 3px 10px;
+    color: #fff;
+    border-radius: 2px;
+  }
+  .day--1 .day__badge { background: var(--cinnabar); }
+  .day--2 .day__badge { background: var(--jade); }
+  .day--3 .day__badge { background: var(--ochre); }
+  .day__title { font-family: var(--serif); font-size: 20px; font-weight: 600; letter-spacing: .1em; margin: 0; }
+  .day__date { font-size: 13px; color: var(--ink-3); letter-spacing: .12em; margin-left: auto; }
+
+  .tl { list-style: none; margin: 0; padding: 4px 0; }
+  .tl__row { display: grid; grid-template-columns: 86px 34px 1fr; gap: 12px; align-items: start; padding: 12px 20px; border-bottom: 1px solid var(--line-2); }
+  .tl__row:last-child { border-bottom: none; }
+  .tl__time { font-variant-numeric: tabular-nums; font-size: 13.5px; color: var(--ink-2); letter-spacing: .06em; padding-top: 2px; }
+  .tl__ico { color: var(--ink-3); display: flex; justify-content: center; padding-top: 1px; }
+  .tl__ico svg { width: 19px; height: 19px; }
+  .tl__body { font-size: 14.5px; }
+  .tl__body b { font-weight: 600; }
+  .tl__meta { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 3px; letter-spacing: .02em; }
+  .tl__row--move .tl__ico { color: var(--slate); }
+  .tl__row--move b { color: var(--slate); }
+  .tl__row--eat .tl__ico { color: var(--cinnabar); }
+  .tl__row--sleep .tl__ico { color: var(--jade); }
+
+  /* ---------- 卡片网格（景区 / 美食 / 住宿）---------- */
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); }
+
+  .card {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, border-color .35s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--ink-3); }
+
+  .card__shot { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--paper-tint); }
+  .card__shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card__idx {
+    position: absolute; left: 0; top: 0;
+    font-family: var(--serif); font-size: 12px; letter-spacing: .2em;
+    background: rgba(27,26,23,.82); color: #fff;
+    padding: 4px 10px;
+  }
+
+  .card__body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card__title { font-family: var(--serif); font-size: 19px; font-weight: 600; letter-spacing: .08em; margin: 0; }
+  .card__desc { font-size: 13.5px; color: var(--ink-2); margin: 0; flex: 1; }
+  .card__rows { font-size: 12.5px; color: var(--ink-3); display: flex; flex-direction: column; gap: 3px; }
+  .card__rows span { display: flex; gap: 7px; align-items: flex-start; }
+  .card__rows svg { width: 13px; height: 13px; flex: none; margin-top: 3px; }
+  .card__ratio { font-size: 12px; color: var(--ink-3); }
+
+  .card__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 4px; }
+  .amap-link {
+    font-size: 12.5px;
+    color: var(--cinnabar);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
+  .amap-link:hover { color: var(--ink); }
+
+  /* ---------- 页脚 ---------- */
+  .foot {
+    border-top: 2px solid var(--ink);
+    margin-top: 24px;
+    padding-top: 22px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .foot h3 { font-family: var(--serif); font-size: 15px; letter-spacing: .16em; margin: 0 0 10px; }
+  .foot ul { margin: 0 0 18px; padding-left: 20px; }
+  .foot li { margin-bottom: 4px; }
+  .foot code { font-size: 12px; background: var(--paper-tint); padding: 1px 5px; border: 1px solid var(--line-2); }
+
+  /* ---------- 工具条 ---------- */
+  .toolbar {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: .08em;
+    padding: 10px 16px;
+    background: var(--ink);
+    color: var(--paper-2);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+  }
+  .btn:hover { background: var(--cinnabar); border-color: var(--cinnabar); }
+
+  /* ---------- 入场动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .card { transition: none; }
+  }
+
+  /* ---------- 窄屏 ---------- */
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px 72px; }
+    .masthead { padding: 44px 0 28px; }
+    .seal { position: static; margin-bottom: 18px; transform: none; }
+    .tl__row { grid-template-columns: 68px 26px 1fr; gap: 9px; padding: 11px 14px; }
+    .sec__head { flex-wrap: wrap; gap: 8px; }
+    .sec__note { white-space: normal; }
+  }
+
+  /* ---------- 打印：去纹理、去交互、防止卡片跨页断裂 ---------- */
+  @page { margin: 14mm; }
+
+  @media print {
+    body { background: #fff; background-image: none; font-size: 11.5pt; color: #000; }
+    .wrap { max-width: none; padding: 0; }
+    .toolbar, .no-print { display: none !important; }
+    .masthead { padding-top: 0; margin-bottom: 26px; }
+    .sec { margin-bottom: 30px; break-inside: avoid; }
+    .day, .card, .map, .tbl-wrap { break-inside: avoid; box-shadow: none; }
+    .card { border: 1px solid #999; }
+    .card:hover { transform: none; box-shadow: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .day__head, .tbl thead th { background: #f2f2f2 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card__shot { aspect-ratio: 4 / 3; }
+    .card__desc, .card__rows { font-size: 9.5pt; }
+    .amap-link { color: #000; border: none; }
+    .amap-link::after { content: "（高德：" attr(href) "）"; font-size: 8pt; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 图标定义：景点 / 餐饮 / 交通 / 住宿 / 门票 / 天气 / 提示 / 月 -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-spot" viewBox="0 0 24 24">
+      <path d="M2 19h20M5 19l4.6-8 3 4.2 2.4-4L19 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="17" cy="6" r="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="i-food" viewBox="0 0 24 24">
+      <path d="M3 11h18c0 4.2-4 7-9 7s-9-2.8-9-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M8 7.5V3.5M12 7.5V3M16 7.5V3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-transit" viewBox="0 0 24 24">
+      <rect x="5" y="3" width="14" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M5 10.5h14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M9 16v3.5M15 16v3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="8.6" cy="13.2" r=".9" fill="currentColor"/><circle cx="15.4" cy="13.2" r=".9" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-hotel" viewBox="0 0 24 24">
+      <path d="M3 20V7M3 13h18v7M3 20h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M7.5 13v-2.2A1.3 1.3 0 0 1 8.8 9.5h2.4a1.3 1.3 0 0 1 1.3 1.3V13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24">
+      <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h15A1.5 1.5 0 0 1 21 8.5v1.6a2 2 0 0 0 0 3.8v1.6a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 15.5v-1.6a2 2 0 0 0 0-3.8z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M12 9.5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="1.8 2"/>
+    </symbol>
+    <symbol id="i-weather" viewBox="0 0 24 24">
+      <path d="M7 18.5h9.2a4.2 4.2 0 0 0 .3-8.4 5.6 5.6 0 0 0-10.6 1.6A3.3 3.3 0 0 0 7 18.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-tip" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M12 7.6v5.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="12" cy="16.4" r="1" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path d="M20.2 14.6A8.6 8.6 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 21s6.5-6 6.5-10.5a6.5 6.5 0 1 0-13 0C5.5 15 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="12" cy="10.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <!-- ======================= 报头 ======================= -->
+  <header class="masthead">
+    <div class="seal" aria-hidden="true">中秋<small>杭州行</small></div>
+    <p class="masthead__eyebrow">Hangzhou · Mid-Autumn</p>
+    <h1 class="masthead__title">杭州中秋<br>三日行程</h1>
+    <p class="masthead__sub">西 湖 · 灵 隐 · 河 坊 · 西 溪</p>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="fact__k">出行日期</div>
+        <div class="fact__v">9/25 — 9/27</div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">天数</div>
+        <div class="fact__v">3 天 · 不调休</div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">气温参考</div>
+        <div class="fact__v">30–33 ℃ / 23–24 ℃</div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">核心动线</div>
+        <div class="fact__v"><em>环湖 → 灵隐 → 西溪</em></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================= 卷 一 · 出行时间 ======================= -->
+  <section class="sec reveal" id="time">
+    <div class="sec__head">
+      <span class="sec__no">卷 一</span>
+      <h2 class="sec__title">出行时间</h2>
+      <span class="sec__note">依据国务院办公厅放假通知</span>
+    </div>
+
+    <div class="alert">
+      <strong>车票要立刻买。</strong>9/25 的车票已于 9 月 11 日开售，9/27 返程票 9 月 13 日开售，热门线路大概率已紧张。中秋假期高速<strong>不免费</strong>（免费仅覆盖春节、清明、劳动节、国庆）。
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>项目</th><th>内容</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>假期</td><td class="num"><strong>9 月 25 日（周五）— 9 月 27 日（周日）</strong></td><td>共 3 天</td></tr>
+          <tr><td>调休</td><td class="num">不调休</td><td>前后正常上班</td></tr>
+          <tr><td>高速</td><td class="num">不免费</td><td>自驾需计通行费</td></tr>
+          <tr><td>车票</td><td class="num">9/25 票 9 月 11 日开售<br>9/27 票 9 月 13 日开售</td><td>均已开售，需尽快锁票</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lead" style="margin-top:22px">
+      把抵达放在 <strong>9/25 上午</strong>：中秋当天是灵隐寺最忙的一天，但景区会提前半小时开门，早到能抢在客流高峰之前。
+    </p>
+  </section>
+
+  <!-- ======================= 卷 二 · 天气状况 ======================= -->
+  <section class="sec reveal" id="weather">
+    <div class="sec__head">
+      <span class="sec__no">卷 二</span>
+      <h2 class="sec__title">天气状况</h2>
+      <span class="sec__note">高德天气接口 · 查询于 9 月 19 日</span>
+    </div>
+
+    <div class="alert alert--calm">
+      <strong>必须先说明一点：9 月 25—27 日的预报现在还没出来。</strong>官方接口只提供 4 天预报，目前仅覆盖到 9 月 22 日。下表是已有的实测数据，中秋窗口需在 <strong>9 月 22 日之后</strong>再查一次。
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>日期</th><th>白天</th><th>夜间</th><th>气温（高 / 低）</th><th>风力</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">9/19（今天）</td><td>多云</td><td>阴</td><td class="num">33 / 24 ℃</td><td>东北风 1–3 级</td></tr>
+          <tr><td class="num">9/20</td><td>多云</td><td>晴</td><td class="num">30 / 23 ℃</td><td>东北风 1–3 级</td></tr>
+          <tr><td class="num">9/21</td><td>晴</td><td>晴</td><td class="num">31 / 24 ℃</td><td>北风 1–3 级</td></tr>
+          <tr><td class="num">9/22</td><td>多云</td><td>晴</td><td class="num">30 / 23 ℃</td><td>东风 1–3 级</td></tr>
+          <tr><td class="num">9/25–27</td><td colspan="4" style="color:var(--ink-3)">预报窗口未开，待 9 月 22 日后更新</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lead" style="margin-top:22px">
+      从趋势能读出两件事：<strong>白天仍偏热（30 ℃ 以上）</strong>，不是凉快的秋天；<strong>昼夜温差约 7 ℃</strong>。
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">穿衣</h3>
+          <p class="card__desc">短袖 + 薄外套。正午暴晒，早晚湖风一起就凉，尤其夜间在湖边久待。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-weather"/></svg>夜间 23–24 ℃，外套必备</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">防晒与雨具</h3>
+          <p class="card__desc">防晒必带，遮阳伞兼作防雷阵雨之用。9 月下旬浙江仍可能受台风外围影响。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-tip"/></svg>建议为行程留一天弹性</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">桂花季</h3>
+          <p class="card__desc">杭州中秋正值桂花季，满觉陇一带往年多在 9 月下旬至 10 月上旬盛开，以当年花讯为准。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-spot"/></svg>若已开花，值得插入半天</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 卷 三 · 路线地图 ======================= -->
+  <section class="sec reveal" id="map">
+    <div class="sec__head">
+      <span class="sec__no">卷 三</span>
+      <h2 class="sec__title">路线地图</h2>
+      <span class="sec__note">按高德实测经纬度投影绘制</span>
+    </div>
+
+    <div class="map">
+      <svg viewBox="0 0 1000 540" role="img" aria-label="杭州三日游路线示意图，含六个关键位置与三条日程路线">
+        <defs>
+          <!-- 水系渐变：让湖面有纵深，而非一块平色 -->
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0.4" y2="1">
+            <stop offset="0%" stop-color="#e6eeec"/>
+            <stop offset="100%" stop-color="#d3e0dd"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 西湖水体（示意形状，非实测岸线） -->
+        <path class="mp-water" fill="url(#waterGrad)"
+              d="M470 330 C480 300 520 292 560 296 C600 300 620 320 622 360 C624 410 600 460 560 478 C520 492 480 480 466 450 C452 415 456 365 470 330 Z"/>
+        <!-- 苏堤与白堤：湖中两条堤线 -->
+        <path class="mp-causeway" d="M512 306 L506 470"/>
+        <path class="mp-causeway" d="M575 305 L556 330"/>
+
+        <!-- 第三天：河坊街 → 西溪（公交/打车，绕湖北侧），虚线 -->
+        <path d="M675 419 C660 150 300 120 87 325" fill="none" stroke="#9c6b22" stroke-width="2.4"
+              stroke-dasharray="9 7" stroke-linecap="round" opacity=".85"/>
+        <!-- 返程：西溪 → 杭州东站，虚线更淡 -->
+        <path d="M87 325 C250 120 600 60 906 92" fill="none" stroke="#8b8477" stroke-width="2"
+              stroke-dasharray="4 8" stroke-linecap="round" opacity=".8"/>
+
+        <!-- 第一天：东站 → 断桥 → 苏堤 -->
+        <path d="M906 92 L575 305 L510 420" fill="none" stroke="#a8382a" stroke-width="3.2"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- 第二天：断桥 → 灵隐，灵隐 → 河坊街 -->
+        <path d="M575 305 Q430 340 305 417" fill="none" stroke="#3f6353" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M305 417 Q490 520 675 419" fill="none" stroke="#3f6353" stroke-width="3.2" stroke-linecap="round"/>
+
+        <!-- 关键位置标记 -->
+        <g>
+          <!-- 1 杭州东站 -->
+          <circle cx="906" cy="92" r="15" fill="#35617a"/>
+          <text class="mp-num" x="906" y="96" text-anchor="middle">1</text>
+          <text class="mp-label" x="884" y="86" text-anchor="end">杭州东站</text>
+          <text class="mp-sub"  x="884" y="102" text-anchor="end">抵达 / 返程枢纽</text>
+
+          <!-- 2 断桥残雪 -->
+          <circle cx="575" cy="305" r="15" fill="#a8382a"/>
+          <text class="mp-num" x="575" y="309" text-anchor="middle">2</text>
+          <text class="mp-label" x="575" y="283" text-anchor="middle">断桥残雪</text>
+
+          <!-- 3 苏堤春晓 -->
+          <circle cx="510" cy="420" r="15" fill="#a8382a"/>
+          <text class="mp-num" x="510" y="424" text-anchor="middle">3</text>
+          <text class="mp-label" x="510" y="396" text-anchor="middle">苏堤春晓</text>
+
+          <!-- 4 灵隐寺 -->
+          <circle cx="305" cy="417" r="15" fill="#3f6353"/>
+          <text class="mp-num" x="305" y="421" text-anchor="middle">4</text>
+          <text class="mp-label" x="305" y="395" text-anchor="middle">灵隐寺</text>
+
+          <!-- 5 河坊街 -->
+          <circle cx="675" cy="419" r="15" fill="#3f6353"/>
+          <text class="mp-num" x="675" y="423" text-anchor="middle">5</text>
+          <text class="mp-label" x="675" y="452" text-anchor="middle">河坊街</text>
+
+          <!-- 6 西溪湿地 -->
+          <circle cx="87" cy="325" r="15" fill="#9c6b22"/>
+          <text class="mp-num" x="87" y="329" text-anchor="middle">6</text>
+          <text class="mp-label" x="110" y="321">西溪湿地</text>
+        </g>
+
+        <!-- 湖名与指北针 -->
+        <text class="mp-label" x="540" y="392" text-anchor="middle" fill="#4a6b5f" opacity=".95">西　湖</text>
+        <g transform="translate(944,494)">
+          <path d="M0 -16 L5 6 L0 1 L-5 6 Z" fill="#1b1a17"/>
+          <text class="mp-sub" x="0" y="22" text-anchor="middle">北</text>
+        </g>
+      </svg>
+
+      <div class="map__cap">
+        <span><i class="swatch" style="border-top-color:#a8382a"></i>第一天 · 东站 → 断桥 → 苏堤</span>
+        <span><i class="swatch" style="border-top-color:#3f6353"></i>第二天 · 断桥 → 灵隐 → 河坊街</span>
+        <span><i class="swatch" style="border-top-color:#9c6b22;border-top-style:dashed"></i>第三天 · 河坊街 → 西溪</span>
+        <span><i class="swatch" style="border-top-color:#8b8477;border-top-style:dashed"></i>返程 · 西溪 → 东站</span>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:18px">
+      位置坐标取自高德地图实测经纬度（如断桥残雪 <code>120.151347,30.258151</code>），湖岸线为示意形状。点击下方各景点卡片上的「高德地图」链接，可在手机高德 App 中直接定位与导航。
+    </p>
+  </section>
+
+  <!-- ======================= 卷 四 · 三日路线 ======================= -->
+  <section class="sec reveal" id="plan">
+    <div class="sec__head">
+      <span class="sec__no">卷 四</span>
+      <h2 class="sec__title">路线规划</h2>
+      <span class="sec__note">距离与耗时均来自高德路径规划</span>
+    </div>
+
+    <!-- Day 1 -->
+    <article class="day day--1">
+      <div class="day__head">
+        <span class="day__badge">Day 1</span>
+        <h3 class="day__title">抵达 · 环湖 · 赏月</h3>
+        <span class="day__date">9/25 周五 · 中秋</span>
+      </div>
+      <ul class="tl">
+        <li class="tl__row tl__row--move">
+          <span class="tl__time">09:30</span>
+          <span class="tl__ico"><svg><use href="#i-transit"/></svg></span>
+          <span class="tl__body"><b>杭州东站 → 断桥残雪</b>
+            <span class="tl__meta">地铁 1 号线 火车东站 D 口 → 凤起路 C2 口，换乘 277 路 孩儿巷1 → 少年宫｜全程约 43 分钟，步行 759 m｜距离 9.5 km</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">11:00</span>
+          <span class="tl__ico"><svg><use href="#i-hotel"/></svg></span>
+          <span class="tl__body"><b>入住</b>　北山街 / 保俶路一带
+            <span class="tl__meta">详见「周边酒店」，该片区步行可达断桥与湖滨</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--eat">
+          <span class="tl__time">12:00</span>
+          <span class="tl__ico"><svg><use href="#i-food"/></svg></span>
+          <span class="tl__body"><b>午餐 · 杭帮菜</b>　北山街
+            <span class="tl__meta">外婆家（北山街 10 号）／印湖饭店（宝石山下二弄 2-6 号）</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">14:00</span>
+          <span class="tl__ico"><svg><use href="#i-spot"/></svg></span>
+          <span class="tl__body"><b>断桥残雪 → 白堤 → 平湖秋月</b>
+            <span class="tl__meta">5A 级 · 评分 4.9 · 24 小时开放 · 无需预约</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">16:30</span>
+          <span class="tl__ico"><svg><use href="#i-spot"/></svg></span>
+          <span class="tl__body"><b>苏堤春晓</b>
+            <span class="tl__meta">断桥至苏堤约 2.5 km，沿湖步行，是全天最舒服的一段｜苏堤评分 4.7 · 24 小时开放</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--eat">
+          <span class="tl__time">18:30</span>
+          <span class="tl__ico"><svg><use href="#i-food"/></svg></span>
+          <span class="tl__body"><b>晚餐 · 湖滨路 / 环城西路</b>
+            <span class="tl__meta">新新饭店 1913 餐厅（北山街 58 号）／绿茶餐厅（圣塘景区 2 号-1）</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">20:00</span>
+          <span class="tl__ico"><svg><use href="#i-moon"/></svg></span>
+          <span class="tl__body"><b>湖滨赏月</b>
+            <span class="tl__meta">中秋正日，湖滨一带是主战场，建议 19:30 前占好位置</span>
+          </span>
+        </li>
+      </ul>
+    </article>
+
+    <!-- Day 2 -->
+    <article class="day day--2">
+      <div class="day__head">
+        <span class="day__badge">Day 2</span>
+        <h3 class="day__title">灵隐 · 天竺 · 河坊街</h3>
+        <span class="day__date">9/26 周六</span>
+      </div>
+      <ul class="tl">
+        <li class="tl__row tl__row--move">
+          <span class="tl__time">06:30</span>
+          <span class="tl__ico"><svg><use href="#i-transit"/></svg></span>
+          <span class="tl__body"><b>断桥 → 灵隐寺</b>　乘 7 路（节假日线）
+            <span class="tl__meta">少年宫 → 灵隐，经新新饭店、岳坟、植物园(玉泉)、洪春桥、九里松｜约 56 分钟，含步行 1.6 km｜距离 6.7 km</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">07:00</span>
+          <span class="tl__ico"><svg><use href="#i-ticket"/></svg></span>
+          <span class="tl__body"><b>灵隐寺 · 飞来峰</b>　<em style="color:var(--cinnabar);font-style:normal">关键时间窗</em>
+            <span class="tl__meta">常规 07:30—17:30（最晚入园 17:00）；法定节假日提前半小时开门、推迟半小时关门，中秋约 07:00—18:00</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--eat">
+          <span class="tl__time">11:30</span>
+          <span class="tl__ico"><svg><use href="#i-food"/></svg></span>
+          <span class="tl__body"><b>午餐 · 素斋</b>　天竺路一带
+            <span class="tl__meta">翠薇面斋（灵隐公园内）／大隐清心素食自助（灵隐路 38 号隐市 2 楼）／知竹（天竺路 69 号）</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">14:00</span>
+          <span class="tl__ico"><svg><use href="#i-spot"/></svg></span>
+          <span class="tl__body"><b>龙井村 / 九溪十八涧</b>　或续走天竺三寺
+            <span class="tl__meta">在龙井村吃一顿用当年新茶做的龙井虾仁，比市区靠谱</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--move">
+          <span class="tl__time">17:00</span>
+          <span class="tl__ico"><svg><use href="#i-transit"/></svg></span>
+          <span class="tl__body"><b>灵隐 → 河坊街</b>　建议打车
+            <span class="tl__meta">距离 6.6 km；高德首选公交换乘方案约 98 分钟（含步行 1.7 km），走了一天之后不建议硬扛公交</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--eat">
+          <span class="tl__time">18:30</span>
+          <span class="tl__ico"><svg><use href="#i-food"/></svg></span>
+          <span class="tl__body"><b>河坊街 · 高银街 晚餐 + 夜游</b>
+            <span class="tl__meta">知味观（高银街 71-73 号）／皇饭儿（高银街 53-57 号）／河坊街 24 小时开放</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--sleep">
+          <span class="tl__time">21:00</span>
+          <span class="tl__ico"><svg><use href="#i-hotel"/></svg></span>
+          <span class="tl__body"><b>返回住处</b>
+            <span class="tl__meta">河坊街紧邻吴山广场站与江城路站两个地铁站</span>
+          </span>
+        </li>
+      </ul>
+    </article>
+
+    <!-- Day 3 -->
+    <article class="day day--3">
+      <div class="day__head">
+        <span class="day__badge">Day 3</span>
+        <h3 class="day__title">西溪湿地 · 返程</h3>
+        <span class="day__date">9/27 周日</span>
+      </div>
+      <ul class="tl">
+        <li class="tl__row">
+          <span class="tl__time">07:30</span>
+          <span class="tl__ico"><svg><use href="#i-ticket"/></svg></span>
+          <span class="tl__body"><b>西溪国家湿地公园 入园</b>
+            <span class="tl__meta">天目山路 518 号｜5A 级 · 评分 4.8｜4 月 1 日—10 月 7 日为 07:30—18:30（最晚入园 18:00），10 月 8 日起缩短为 08:00—17:30</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--move">
+          <span class="tl__time">09:00</span>
+          <span class="tl__ico"><svg><use href="#i-transit"/></svg></span>
+          <span class="tl__body"><b>园内交通 · 电瓶船 / 电瓶车</b>
+            <span class="tl__meta">园区面积大，靠步行一天走不完</span>
+          </span>
+        </li>
+        <li class="tl__row tl__row--eat">
+          <span class="tl__time">12:00</span>
+          <span class="tl__ico"><svg><use href="#i-food"/></svg></span>
+          <span class="tl__body"><b>午餐</b>　西溪园内或返程路上</span>
+        </li>
+        <li class="tl__row tl__row--move">
+          <span class="tl__time">14:00</span>
+          <span class="tl__ico"><svg><use href="#i-transit"/></svg></span>
+          <span class="tl__body"><b>西溪 → 杭州东站</b>
+            <span class="tl__meta">预留 1 小时以上，节假日地面交通与地铁都会明显变慢</span>
+          </span>
+        </li>
+        <li class="tl__row">
+          <span class="tl__time">16:00</span>
+          <span class="tl__ico"><svg><use href="#i-transit"/></svg></span>
+          <span class="tl__body"><b>返程</b>
+            <span class="tl__meta">若时间紧张，第三天可换成运河—小河直街一线，离东站更近</span>
+          </span>
+        </li>
+      </ul>
+    </article>
+
+    <div class="alert alert--calm">
+      <strong>耗时按平日口径测算，节假日请按约 1.3 倍预留。</strong>中秋客流下公交、地铁、打车都会明显变慢，9/26 的灵隐一线尤其吃紧。
+    </div>
+  </section>
+
+  <!-- ======================= 卷 五 · 景区卡片 ======================= -->
+  <section class="sec reveal" id="spots">
+    <div class="sec__head">
+      <span class="sec__no">卷 五</span>
+      <h2 class="sec__title">景点卡片</h2>
+      <span class="sec__note">点击链接可在高德 App 中定位</span>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="card__shot">
+          <img src="https://console.enterprise.trae.cn/api/ide/v1/text_to_image?prompt=Hangzhou%20West%20Lake%20Broken%20Bridge%20at%20dawn%2C%20traditional%20Chinese%20stone%20arch%20bridge%20over%20calm%20water%2C%20weeping%20willows%2C%20soft%20mist%2C%20distant%20pagoda%20silhouette%2C%20photorealistic%20landscape%20photography%2C%20muted%20ink%20wash%20tone%2C%20no%20text&amp;image_size=landscape_4_3" alt="断桥残雪：西湖晨雾中的石拱桥与垂柳" loading="lazy">
+          <span class="card__idx">01</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">断桥残雪</h3>
+          <p class="card__desc">白堤东端起点，西湖十景之一。桥面视野全开，是看北山街与宝石山最好的位置。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-pin"/></svg>龙井路 1 号 西湖风景名胜区内</span>
+            <span><svg><use href="#i-ticket"/></svg>5A 级 · 评分 4.9 · 24 小时开放</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">Day 1 · 14:00</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.151347,30.258151&amp;name=断桥残雪&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__shot">
+          <img src="https://console.enterprise.trae.cn/api/ide/v1/text_to_image?prompt=Sudi%20Causeway%20in%20Hangzhou%20West%20Lake%2C%20tree%20lined%20stone%20path%20crossing%20still%20water%2C%20arched%20stone%20bridges%2C%20soft%20autumn%20light%2C%20photorealistic%20travel%20photography%2C%20serene%20atmosphere%2C%20no%20text&amp;image_size=landscape_4_3" alt="苏堤：林荫石径横穿湖面" loading="lazy">
+          <span class="card__idx">02</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">苏堤春晓</h3>
+          <p class="card__desc">纵贯西湖南北的长堤，全长近三公里，六桥烟柳。步行穿越是体验西湖最经典的方式。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-pin"/></svg>龙井路 1 号 西湖风景名胜区内（东侧）</span>
+            <span><svg><use href="#i-ticket"/></svg>评分 4.7 · 24 小时开放</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">Day 1 · 16:30</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.139291,30.240338&amp;name=苏堤春晓&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__shot">
+          <img src="https://console.enterprise.trae.cn/api/ide/v1/text_to_image?prompt=Lingyin%20Temple%20Hangzhou%2C%20ancient%20Chinese%20Buddhist%20temple%20with%20yellow%20walls%20and%20dark%20tiled%20roofs%2C%20surrounded%20by%20dense%20green%20forest%2C%20morning%20incense%20smoke%2C%20photorealistic%20architectural%20photography%2C%20no%20text&amp;image_size=landscape_4_3" alt="灵隐寺：黄墙黛瓦的殿宇掩映在密林中" loading="lazy">
+          <span class="card__idx">03</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">灵隐寺 · 飞来峰</h3>
+          <p class="card__desc">东晋古刹，江南禅宗重镇。飞来峰石窟造像与寺宇合为一景，中秋当天建议 7 点前到。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-pin"/></svg>西湖区法云弄 1 号</span>
+            <span><svg><use href="#i-ticket"/></svg>5A 级 · 评分 4.9 · 分两道门票</span>
+            <span><svg><use href="#i-tip"/></svg>节假日提前半小时开门</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">Day 2 · 07:00</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.101406,30.240826&amp;name=灵隐寺&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__shot">
+          <img src="https://console.enterprise.trae.cn/api/ide/v1/text_to_image?prompt=Hefang%20Street%20Hangzhou%20ancient%20commercial%20street%20at%20dusk%2C%20traditional%20Chinese%20shopfronts%20with%20hanging%20red%20lanterns%2C%20cobblestone%20road%2C%20warm%20glow%2C%20photorealistic%20street%20photography%2C%20no%20text&amp;image_size=landscape_4_3" alt="河坊街：暮色中的老字号街巷与红灯笼" loading="lazy">
+          <span class="card__idx">04</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">河坊街 · 清河坊</h3>
+          <p class="card__desc">杭州保存最完整的老街，与高银街相连成片，是老字号与小吃的密集区，夜里最好逛。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-pin"/></svg>上城区河坊街（近吴山广场站 / 江城路站）</span>
+            <span><svg><use href="#i-ticket"/></svg>4A 级 · 评分 4.7 · 24 小时开放</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">Day 2 · 18:30</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.169895,30.240584&amp;name=河坊街&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__shot">
+          <img src="https://console.enterprise.trae.cn/api/ide/v1/text_to_image?prompt=Xixi%20National%20Wetland%20Park%20Hangzhou%2C%20winding%20waterway%20through%20tall%20reeds%20and%20persimmon%20trees%2C%20wooden%20boardwalk%2C%20egrets%2C%20soft%20overcast%20light%2C%20photorealistic%20nature%20photography%2C%20no%20text&amp;image_size=landscape_4_3" alt="西溪湿地：芦苇水道与木栈道" loading="lazy">
+          <span class="card__idx">05</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">西溪国家湿地公园</h3>
+          <p class="card__desc">城市边缘的次生湿地，水道纵横、芦苇成片。园区极大，建议乘电瓶船游览。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-pin"/></svg>西湖区天目山路 518 号</span>
+            <span><svg><use href="#i-ticket"/></svg>5A 级 · 评分 4.8</span>
+            <span><svg><use href="#i-tip"/></svg>10 月 8 日起缩短开放时间</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">Day 3 · 07:30</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.061159,30.255079&amp;name=西溪国家湿地公园&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__shot">
+          <img src="https://console.enterprise.trae.cn/api/ide/v1/text_to_image?prompt=Osmanthus%20flowers%20blooming%20on%20branches%20in%20Hangzhou%2C%20tiny%20golden%20blossoms%2C%20warm%20autumn%20sunlight%2C%20shallow%20depth%20of%20field%2C%20photorealistic%20macro%20photography%2C%20no%20text&amp;image_size=landscape_4_3" alt="桂花：枝头细密的金色小花" loading="lazy">
+          <span class="card__idx">06</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">满觉陇 · 桂花</h3>
+          <p class="card__desc">杭州中秋的时令景致。满觉陇一带往年多在 9 月下旬至 10 月上旬盛开，花期短，赶上算运气。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-pin"/></svg>西湖区满觉陇路一带</span>
+            <span><svg><use href="#i-tip"/></svg>以当年花讯为准，可作弹性行程</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">弹性安排</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.124000,30.229000&amp;name=满觉陇&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================= 卷 六 · 美食推荐 ======================= -->
+  <section class="sec reveal" id="food">
+    <div class="sec__head">
+      <span class="sec__no">卷 六</span>
+      <h2 class="sec__title">美食推荐</h2>
+      <span class="sec__note">按动线分区 · 均为高德实检店铺</span>
+    </div>
+
+    <p class="lead">
+      必点方向：西湖醋鱼、龙井虾仁、东坡肉、宋嫂鱼羹、片儿川。龙井虾仁要用当年新茶才对味——若下午走到龙井村，在村里吃比市区靠谱。
+    </p>
+
+    <h3 style="font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin:30px 0 14px;padding-left:10px;border-left:3px solid var(--cinnabar)">西湖 / 北山街一带 ｜ Day 1</h3>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>店名</th><th>地址</th><th>特点</th></tr></thead>
+        <tbody>
+          <tr><td><strong>外婆家</strong>（西湖断桥店）</td><td>北山街 10 号</td><td>杭帮菜连锁，人均低，排队久</td></tr>
+          <tr><td><strong>绿茶餐厅</strong>（三潭印月·西湖总店）</td><td>圣塘景区 2 号-1</td><td>杭帮菜 + 融合，就在湖边</td></tr>
+          <tr><td><strong>新新饭店 · 1913 餐厅</strong></td><td>北山街 58 号</td><td>老饭店，民国风情，适合中秋夜</td></tr>
+          <tr><td>印湖饭店（西湖断桥店）</td><td>宝石山下二弄 2-6 号</td><td>传统杭帮菜</td></tr>
+          <tr><td>小狗面馆（西湖断桥店）</td><td>保俶路 43-7 号</td><td>片儿川、拌川，快食</td></tr>
+          <tr><td>望湖楼 · 中餐厅</td><td>环城西路 2 号望湖宾馆 8 层</td><td>高层望湖</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin:30px 0 14px;padding-left:10px;border-left:3px solid var(--jade)">河坊街 / 高银街 ｜ Day 2 晚</h3>
+    <p class="lead" style="margin:-4px 0 14px">两条街紧挨着，是全区美食密度最高的地方。</p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>店名</th><th>地址</th><th>特点</th></tr></thead>
+        <tbody>
+          <tr><td><strong>知味观</strong>（高银美食街店）</td><td>高银街 71-73 号</td><td>杭州老字号，小笼、虾爆鳝面</td></tr>
+          <tr><td><strong>皇饭儿</strong>（高银街店）</td><td>高银街 53-57 号</td><td>老字号，杭帮家常</td></tr>
+          <tr><td>五芳斋（杭州河坊店）</td><td>高银街 58 号</td><td>粽子老字号</td></tr>
+          <tr><td>新刘记 · 杭帮菜 · 私房菜</td><td>高银街 47-49 号二楼</td><td>本地口味</td></tr>
+          <tr><td>咸亨小厨</td><td>高银街 47 号</td><td>绍兴风味</td></tr>
+          <tr><td>素新风 · 食养自助餐厅</td><td>高银街 89 号</td><td>素食自助</td></tr>
+          <tr><td>河坊街美食城</td><td>河坊街 85 号</td><td>小吃集合，一次尝多样</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin:30px 0 14px;padding-left:10px;border-left:3px solid var(--ochre)">灵隐 / 天竺路 ｜ Day 2 午</h3>
+    <p class="lead" style="margin:-4px 0 14px">灵隐一带的素食是特色，天竺路上尤其集中。</p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>店名</th><th>地址</th></tr></thead>
+        <tbody>
+          <tr><td>翠薇面斋</td><td>灵隐公园内</td></tr>
+          <tr><td>福泉素斋</td><td>灵隐路法云弄 16 号</td></tr>
+          <tr><td>大隐清心素食自助餐厅（隐市店）</td><td>灵隐路 38 号隐市 2 楼</td></tr>
+          <tr><td>素问 · 灵隐素食</td><td>灵隐路 38 号 1 号楼 2 层</td></tr>
+          <tr><td>知竹</td><td>天竺路 69 号</td></tr>
+          <tr><td>无尽喜 · 庭院蔬食（灵隐店）</td><td>天竺路 215-3 号</td></tr>
+          <tr><td>庆春朴门（灵隐店）</td><td>白乐桥 181 号</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= 卷 七 · 周边酒店 ======================= -->
+  <section class="sec reveal" id="hotel">
+    <div class="sec__head">
+      <span class="sec__no">卷 七</span>
+      <h2 class="sec__title">周边酒店</h2>
+      <span class="sec__note">高德周边检索 · 3 km 内</span>
+    </div>
+
+    <p class="lead">
+      住宿建议集中在<strong>北山街 / 保俶路</strong>（贴西湖，Day 1 与 Day 2 早上出发最省事）或<strong>中山中路 / 河坊街</strong>（Day 2 夜游后步行回房）两片。中秋是旺季，房价与房源都会紧张，越早订越好。
+    </p>
+
+    <h3 style="font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin:30px 0 14px;padding-left:10px;border-left:3px solid var(--cinnabar)">北山街 / 保俶路 ｜ 贴西湖</h3>
+    <div class="grid">
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">杭州新新饭店</h3>
+          <p class="card__desc">北山路 58 号，紧邻西湖。老牌饭店，本身就是景点，中秋夜位置极佳。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>北山路 58 号（紧邻西湖）</span>
+            <span><svg><use href="#i-pin"/></svg>距断桥步行可达</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">高端 · 湖畔</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.152500,30.256800&amp;name=杭州新新饭店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">杭州望湖宾馆</h3>
+          <p class="card__desc">环城西路 2 号，临湖而立，楼上有望湖餐厅，正对湖滨。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>环城西路 2 号</span>
+            <span><svg><use href="#i-pin"/></svg>湖滨路商圈内</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">中高端 · 湖畔</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.159900,30.257300&amp;name=杭州望湖宾馆&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">全季酒店（西湖断桥店）</h3>
+          <p class="card__desc">保俶路 74 号 2 幢。连锁品质稳定，位置离断桥很近，性价比之选。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>保俶路 74 号 2 幢</span>
+            <span><svg><use href="#i-pin"/></svg>步行至断桥约 10 分钟</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">中档连锁</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.156900,30.261400&amp;name=全季酒店杭州西湖断桥店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">汉庭优佳酒店（西湖断桥店）</h3>
+          <p class="card__desc">保俶路 43 号。经济型连锁，紧邻北山街，预算有限时的稳妥选项。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>保俶路 43 号</span>
+            <span><svg><use href="#i-pin"/></svg>少年宫公交站在附近</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">经济连锁</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.156100,30.260300&amp;name=汉庭优佳酒店杭州西湖断桥店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">浙江省人民大会堂宾馆</h3>
+          <p class="card__desc">凤起路 630 号。出门即是地铁凤起路站附近，交通便利，去东站方便。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>凤起路 630 号</span>
+            <span><svg><use href="#i-pin"/></svg>近地铁凤起路站</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">中档 · 交通便利</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.163700,30.261600&amp;name=浙江省人民大会堂宾馆&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">晓露民宿（北山街分店）</h3>
+          <p class="card__desc">北山街 11 号，就在断桥残雪附近。民宿形态，适合想住在景区里的短途客。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>北山街 11 号（近断桥残雪）</span>
+            <span><svg><use href="#i-pin"/></svg>出门即环湖绿道</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">民宿 · 贴湖</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.153000,30.258800&amp;name=晓露民宿北山街分店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin:34px 0 14px;padding-left:10px;border-left:3px solid var(--jade)">中山中路 / 河坊街 ｜ 逛吃中心</h3>
+    <div class="grid">
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">雷迪森怿曼酒店（南宋御街）</h3>
+          <p class="card__desc">中山中路 106 号，就在南宋御街上。Day 2 夜游河坊街后可直接走回。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>中山中路 106 号</span>
+            <span><svg><use href="#i-pin"/></svg>河坊街 / 高银街步行可达</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">中高端</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.170600,30.243400&amp;name=杭州西湖湖滨南宋御街雷迪森怿曼酒店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">清河酒店（西湖河坊街店）</h3>
+          <p class="card__desc">河坊街 175 号旁小井巷 1 号。真正住在老街里，出门就是夜市。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>河坊街 175 号旁小井巷 1 号</span>
+            <span><svg><use href="#i-pin"/></svg>紧邻清河坊步行街</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">中档 · 老街内</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.169100,30.240900&amp;name=清河酒店杭州西湖河坊街店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">杭州承宅民宿（西湖河坊街店）</h3>
+          <p class="card__desc">大井巷 52 号。巷弄里的民宿，安静，离热闹只有几十米。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>大井巷 52 号</span>
+            <span><svg><use href="#i-pin"/></svg>河坊街南侧</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">民宿</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.168700,30.238900&amp;name=杭州承宅民宿西湖河坊街店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">云顶 · 轻奢酒店（西湖河坊街店）</h3>
+          <p class="card__desc">中山中路 107 号。位置在两片之间，去西湖与去老街都方便。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>中山中路 107 号</span>
+            <span><svg><use href="#i-pin"/></svg>近吴山广场站</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">轻奢</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.170900,30.242900&amp;name=云顶轻奢酒店杭州西湖河坊街店&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">杭州智星青年旅舍</h3>
+          <p class="card__desc">中山中路 115 号中山大厦 6 层 610 室。青旅形态，适合独行或预算优先的行程。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>中山中路 115 号中山大厦 F6</span>
+            <span><svg><use href="#i-pin"/></svg>近河坊街南入口</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">青年旅舍</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.170800,30.238800&amp;name=杭州智星青年旅舍&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__body">
+          <h3 class="card__title">可见时光 · 望达斯旅舍</h3>
+          <p class="card__desc">小井巷 21 号，吴山广场地铁站 D 口步行约 360 米，公共交通最方便的一档。</p>
+          <div class="card__rows">
+            <span><svg><use href="#i-hotel"/></svg>小井巷 21 号</span>
+            <span><svg><use href="#i-pin"/></svg>吴山广场站 D 口 360 m</span>
+          </div>
+          <div class="card__foot">
+            <span class="card__ratio">旅舍 · 近地铁</span>
+            <a class="amap-link" href="https://uri.amap.com/marker?position=120.168300,30.239800&amp;name=可见时光望达斯旅舍&amp;coordinate=gaode&amp;callnative=1">高德地图 →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="alert" style="margin-top:24px">
+      <strong>以上坐标为高德检索结果就近取点，用于 App 定位参考，非门牌级精度</strong>；预订前请以平台页面上的实际地址与地图为准。中秋房源紧张，建议优先锁定可免费取消的房型。
+    </div>
+  </section>
+
+  <!-- ======================= 卷 八 · 实用信息 ======================= -->
+  <section class="sec reveal" id="tips">
+    <div class="sec__head">
+      <span class="sec__no">卷 八</span>
+      <h2 class="sec__title">实用信息</h2>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">关键时间</h3>
+          <div class="card__rows">
+            <span><svg><use href="#i-tip"/></svg>灵隐寺 中秋约 07:00 开门（常规 07:30）</span>
+            <span><svg><use href="#i-tip"/></svg>西溪湿地 07:30—18:30，最晚入园 18:00</span>
+            <span><svg><use href="#i-tip"/></svg>断桥、苏堤、河坊街 24 小时开放</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">门票与预约</h3>
+          <div class="card__rows">
+            <span><svg><use href="#i-ticket"/></svg>灵隐寺与飞来峰分两道门票，先入景区再购寺票</span>
+            <span><svg><use href="#i-ticket"/></svg>重点景区节假日多需提前预约</span>
+            <span><svg><use href="#i-ticket"/></svg>票价与预约方式请以官方渠道为准</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">交通与自驾</h3>
+          <div class="card__rows">
+            <span><svg><use href="#i-transit"/></svg>中秋高速不免费，自驾需计通行费</span>
+            <span><svg><use href="#i-transit"/></svg>西湖景区节假日通常有交通管控，自驾需留意当日通告</span>
+            <span><svg><use href="#i-transit"/></svg>返程至少预留 1 小时到站</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__body">
+          <h3 class="card__title">在人流中活下来</h3>
+          <div class="card__rows">
+            <span><svg><use href="#i-tip"/></svg>灵隐一线 9 点后极挤，务必早到</span>
+            <span><svg><use href="#i-tip"/></svg>湖滨赏月 19:30 前占位</span>
+            <span><svg><use href="#i-tip"/></svg>路线耗时按平日 1.3 倍预留</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 页脚 · 数据来源 ======================= -->
+  <footer class="foot reveal">
+    <h3>数据来源与时效</h3>
+    <ul>
+      <li><strong>假期、调休、高速政策</strong>：国务院办公厅《关于 2026 年部分节假日安排的通知》，已确定。</li>
+      <li><strong>天气</strong>：高德天气接口，查询于 2026 年 9 月 19 日，<strong>仅覆盖至 9 月 22 日</strong>，中秋窗口未开。</li>
+      <li><strong>坐标、开放时间、评分、店铺</strong>：高德地图实时检索，其中断桥残雪 <code>120.151347,30.258151</code>、灵隐寺 <code>120.101406,30.240826</code>、河坊街 <code>120.169895,30.240584</code>、西溪湿地 <code>120.061159,30.255079</code>、杭州东站 <code>120.212600,30.290851</code>。</li>
+      <li><strong>路线耗时</strong>：高德路径规划，为平日时段测算值，节假日实际更慢。</li>
+      <li>地图为按上述经纬度投影绘制的<strong>示意图</strong>，湖岸线为示意形状，非等比例测绘结果。</li>
+      <li>景点与酒店图片为 AI 生成的示意图，仅用于版式展示，<strong>不代表实际景观与房型</strong>。</li>
+    </ul>
+    <p style="color:var(--ink-3);font-size:12.5px;margin:0">出发前请复核开放时间、预约政策与房价——节假日临时调整很常见。</p>
+  </footer>
+
+</div>
+
+<div class="toolbar no-print">
+  <button class="btn" type="button" id="btn-print">打印 / 存为 PDF</button>
+</div>
+
+<script>
+  'use strict';
+
+  /**
+   * 滚动入场：元素进入视口后加 is-in 触发淡入上浮。
+   * 用 IntersectionObserver 而非滚动监听，避免每帧重排；
+   * 不支持该 API 时直接全部显示，保证内容可见优先于动画。
+   */
+  function initReveal() {
+    const targets = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        // 只触发一次，触发后即解除观察，减少无谓计算
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+    targets.forEach(function (el) { observer.observe(el); });
+  }
+
+  /**
+   * 绑定打印按钮。交给浏览器原生打印，用户可自行选择打印机或存为 PDF，
+   * 打印样式由 @media print 接管。
+   */
+  function initPrintButton() {
+    const button = document.getElementById('btn-print');
+    if (!button) return;
+    button.addEventListener('click', function () { window.print(); });
+  }
+
+  initReveal();
+  initPrintButton();
+</script>
+
+</body>
+</html>
